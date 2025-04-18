@@ -1,0 +1,41 @@
+.btn {
+  @include flex(row, nowrap, center, center);
+
+  position: relative;
+  background: color(grey-400);
+  border: none;
+  padding: rem(8) rem(16);
+  cursor: pointer;
+  border-radius: rem(4);
+  transition: $default-transition;
+
+  &-primary {
+	background: color(primary);
+	color: color(light);
+
+	&:hover {
+	  background: color(primary, 0.8);
+	}
+  }
+
+  span {
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	transition: $default-transition;
+
+	svg {
+	  display: block;
+	  width: rem(35);
+	  height: rem(35);
+	}
+  }
+
+  &--loading {
+	padding-left: rem(35);
+
+	span {
+	  opacity: 1;
+	}
+  }
+}

@@ -1,0 +1,97 @@
+@use "sass:map";
+
+$prefix-color: '--aky-color-';
+
+$c-primary: #0071CE;
+$c-secondary: #019ADD;
+$c-bourse: #452B44;
+$c-ass-tech: #29BDEF;
+$c-grey-300: #F2F2F2;
+$c-grey-400: #e6e6e6;
+$c-grey-500: #666666;
+$c-body: #FAFAFA;
+$c-light: #FFFFFF;
+$c-dark: #333333;
+$c-danger: #e74c3c;
+
+$colors-scheme-light: (
+		primary: $c-primary,
+		secondary: $c-secondary,
+		ass-tech: $c-ass-tech,
+		bourse: $c-bourse,
+		grey-300: $c-grey-300,
+		grey-400: $c-grey-400,
+		grey-500: $c-grey-500,
+		light: $c-light,
+		dark: $c-dark,
+		danger: $c-danger,
+		body: $c-body,
+		primary--rgb: hexToRGB($c-primary),
+		secondary--rgb: hexToRGB($c-secondary),
+		ass-tech--rgb: hexToRGB($c-ass-tech),
+		grey-300--rgb: hexToRGB($c-grey-300),
+		grey-400--rgb: hexToRGB($c-grey-400),
+		grey-500--rgb: hexToRGB($c-grey-500),
+		light--rgb: hexToRGB($c-light),
+		dark--rgb: hexToRGB($c-dark),
+		danger--rgb: hexToRGB($c-danger),
+		bourse--rgb: hexToRGB($c-bourse),
+		body--rgb: hexToRGB($c-body)
+);
+
+@mixin make_color_palette($color) {
+  .has-#{$color}-color {
+	color: var(--#{$color});
+  }
+  .has-#{$color}-background-color {
+	background-color: var(--#{$color});
+  }
+}
+
+:root {
+  @each $name, $color in $colors-scheme-light {
+	#{$prefix-color}#{$name}: $color;
+  }
+}
+
+@each $name, $color in $colors-scheme-light {
+  @if not (str-index($name, '--rgb')) {
+	.color-#{$name} {
+	  color: color(#{$name}) !important;
+	}
+
+	.color-hover-#{$name} {
+	  transition: $default-transition;
+
+	  &:hover {
+		color: color(#{$name}) !important;
+	  }
+	}
+
+	.bg-color-hover-#{$name} {
+	  transition: $default-transition;
+
+	  &.active,
+	  &:hover {
+		background: color(#{$name}) !important;
+	  }
+	}
+
+	.bg-color-#{$name} {
+	  background: color(#{$name}) !important;
+	}
+
+	.border-color-hover-#{$name} {
+	  transition: $default-transition;
+
+	  &.active,
+	  &:hover {
+		border-color: color(#{$name}) !important;
+	  }
+	}
+
+	.border-color-#{$name} {
+	  border-color: color(#{$name}) !important;
+	}
+  }
+}

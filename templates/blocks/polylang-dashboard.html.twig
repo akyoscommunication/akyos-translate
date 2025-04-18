@@ -1,0 +1,35 @@
+<div class="s-polylang-dashboard">
+	<div class="s-polylang-dashboard-languages">
+		<div class="s-polylang-dashboard-pages">
+			<table class="c-pages-table">
+				<thead>
+				<tr>
+					{% for langue in languages %}
+						<th>{{ langue['name'] }}</th>
+					{% endfor %}
+					<th>Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for page in pagesByLanguage %}
+					<tr>
+						{% for langue in languages %}
+							<td><a href="{{ page[langue['slug']]['url'] }}">{{ page[langue['slug']]['title'] }}</a></td>
+						{% endfor %}
+						<td>
+							{% include 'components/single-translate-button.html.twig' with
+								{
+									'label': 'Traduire',
+									'page_id': page['fr']['id'],
+									'is_all_translated': page['all_translated'],
+									'action' : 'akyos_translate_translate_single_page'
+								} %}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>

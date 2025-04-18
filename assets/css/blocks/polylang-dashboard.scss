@@ -1,0 +1,56 @@
+.s-polylang-dashboard {
+  .s-polylang-dashboard-pages {
+	padding-block: rem(24);
+
+	.c-pages-table {
+	  width: 100%;
+	  border-collapse: collapse;
+	  font-family: Arial, sans-serif;
+	  text-align: left;
+
+	  // Styles pour l'en-tête
+	  thead {
+		tr {
+		  background-color: #f8f9fa;
+
+		  th {
+			padding: 1rem;
+			font-weight: bold;
+			font-size: 1rem;
+			color: #343a40;
+			border-bottom: 2px solid #dee2e6;
+		  }
+		}
+	  }
+
+	  // Styles pour le corps du tableau
+	  tbody {
+		tr {
+		  transition: background-color 0.3s ease;
+
+		  &:hover {
+			background-color: #f1f3f5;
+		  }
+
+		  td {
+			padding: 1rem;
+			font-size: 0.9rem;
+			border-bottom: 1px solid #e9ecef;
+
+			// Liens
+			a {
+			  color: #007bff;
+			  text-decoration: none;
+			  transition: color 0.3s ease;
+
+			  &:hover {
+				color: #0056b3;
+				text-decoration: underline;
+			  }
+			}
+		  }
+		}
+	  }
+	}
+  }
+}

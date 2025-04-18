@@ -1,0 +1,38 @@
+@import "common/variables";
+@import "common/mixins";
+@import "common/colors";
+
+/** Librairies externe */
+@import "common/autoload";
+
+/** Import theme styles */
+@import "common/font";
+@import "common/global";
+@import "common/animations";
+@import "common/extends";
+@import "common/helpers";
+@import "common/reset";
+@import "common/mixins";
+
+@import "layouts/layout";
+
+@import "blocks";
+@import "components";
+
+
+.toplevel_page_akyos-translate {
+
+  &.menu-top-first {
+	//height: 50px;
+  }
+
+  .wp-menu-image {
+	img {
+	  margin-top: 10px;
+	  margin-left: 20px;
+	  padding-top: 0 !important;
+	  max-width: 100px;
+	  object-fit: contain;
+	}
+  }
+}

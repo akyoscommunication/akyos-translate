@@ -1,0 +1,27 @@
+.aky_sidebar {
+  &-menu {
+	li {
+	  margin-bottom: rem(6);
+
+	  a {
+		@include flex(row, nowrap, start, center);
+
+		text-decoration: none;
+		color: color(grey-500);
+		padding: rem(5) rem(15);
+		border-radius: rem(20);
+		background: transparent;
+		font-size: rem(15);
+		font-weight: 500;
+		line-height: 1.5em;
+		transition: $default-transition;
+
+		&.active, &:hover, &:focus {
+		  color: color(dark);
+		  background: color(grey-400);
+		  box-shadow: none;
+		}
+	  }
+	}
+  }
+}

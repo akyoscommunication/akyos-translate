@@ -1,0 +1,18 @@
+{% extends 'sections/layout.html.twig' %}
+
+{% block page_content %}
+	<section class="aky_card">
+		<h1 class="text-center"{{ title }}</h1>
+
+		{% if hasPolylang %}
+			{% include 'blocks/polylang-dashboard.html.twig' %}
+		{% else %}
+			<p class="item-center">
+				<em>
+					Vous n'avez pas installé le plugin <strong>Polylang</strong>, vous ne pourrez pas utiliser la fonctionnalité de traduction.
+				</em>
+			</p>
+		{% endif %}
+
+	</section>
+{% endblock %}

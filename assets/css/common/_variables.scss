@@ -1,0 +1,29 @@
+/** FONTS **/
+$font-family: "Open Sans", sans-serif;
+$html-font-size: 16px;
+$html-base-height: 1080px;
+$line-height: 1;
+
+$padding-inline-start: 66;
+$padding-inline-end: 54;
+
+/** GRID **/
+$gutter: 20px;
+
+/** RESPONSIVE **/
+$header-height: 118px;
+$header-height-mb: 10px;
+$laptop: 1440px;
+$tablet: 1025px;
+$mobile: 767px;
+$mobileXs: 480px;
+
+/** CONTAINER **/
+$container: 1280px;
+$container-lg: 1400px;
+$container-md: 1010px;
+
+$default-transition: .6s cubic-bezier(.1, .25, 0, 1.01);
+$default-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+$threshold: 55%;

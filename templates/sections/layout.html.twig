@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1 class="aky_container__title">{% block title %}{% endblock %}</h1>
+	<div class="main">
+		{% include 'sections/sidebar.html.twig' %}
+
+		<di class="page_content">
+			{% block page_content %}{% endblock %}
+		</di>
+
+		{% include 'sections/footer.html.twig' %}
+	</div>
+{% endblock %}

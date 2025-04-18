@@ -1,0 +1,53 @@
+{
+  "name": "akyos/akyos-translate",
+  "type": "wordpress-plugin",
+  "description": "Wordpress translate helpers",
+  "license": "MIT",
+  "authors": [
+	{
+	  "name": "Lilian Carneau",
+	  "email": "lilian@akyos.com"
+	},
+	{
+	  "name": "Thomas Sebert",
+	  "email": "thomas@akyos.com"
+	},
+	{
+	  "name": "Akyos Communication",
+	  "homepage": "https://akyos.com"
+	}
+  ],
+  "keywords": [
+	"wordpress",
+	"plugin",
+	"akyos",
+	"translate"
+  ],
+  "require": {
+	"php": ">=8.3",
+	"twig/twig": "^3.14",
+	"symfony/dependency-injection": "^7.1",
+	"symfony/config": "^7.1",
+	"symfony/yaml": "^7.1",
+	"symfony/http-client": "^7.1",
+	"symfony/http-foundation": "*",
+	"phpmailer/phpmailer": "^6.9",
+    "symfony/ux-twig-component": "^2.23",
+    "deeplcom/deepl-php": "^1.11",
+    "nyholm/psr7": "^1.8",
+    "openai-php/client": "^0.10.3"
+  },
+  "autoload": {
+	"psr-4": {
+	  "AkyosTranslate\\": "src/"
+	}
+  },
+  "require-dev": {
+	"symfony/var-dumper": "^7.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.c-languages {
+  h6 {
+	margin-bottom: rem(24);
+  }
+
+  &--list {
+	@include undoListStyles;
+
+	li {
+	  @include flex(row, nowrap, start, center);
+	  gap: rem(8);
+
+	  p {
+		margin: 0;
+	  }
+	}
+
+  }
+}

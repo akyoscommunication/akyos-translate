@@ -1,0 +1,15 @@
+.aky_container {
+  padding: rem(30) rem(30) 0 rem(10);
+
+  &__title {
+	font-size: rem(32);
+	margin-bottom: rem(30);
+	line-height: 1;
+  }
+}
+
+.main {
+  display: grid;
+  grid-template-columns: rem(220) 1fr;
+  grid-gap: rem(30);
+}

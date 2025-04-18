@@ -1,0 +1,251 @@
+// FLEX
+@mixin flex($direction, $wrap, $justify-content, $align-items) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+// Object Fit
+@mixin objectFit($object-fit, $object-position: center, $height: 100%, $width: 100%) {
+  object-fit: $object-fit;
+  object-position: $object-position;
+  height: $height;
+  width: $width;
+}
+
+// Pseudo element
+@mixin pseudo($content: "") {
+  content: $content;
+  position: absolute;
+  height: 100%;
+  display: block;
+}
+
+@mixin verticalCenter() {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin horizontalCenter() {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin menuInline() {
+  @include undoListStyles();
+  @include flex(row, wrap, flex-start, center);
+}
+
+@mixin scrollBarStyle() {
+  padding-right: 40px !important;
+
+  &::-webkit-scrollbar {
+	width: 2px;
+	border-radius: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+	background: color(grey-500);
+  }
+
+  &::-webkit-scrollbar-thumb {
+	border-radius: 40px;
+	background: color(dark);
+	width: 5px;
+  }
+}
+
+@mixin undoListStyles() {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+@mixin lessThan($point) {
+  @if $point == desktop {
+	@media screen and (max-width: 1200px) { @content; }
+  }
+  @else if $point == laptop {
+	@media screen and (max-width: 992px) { @content; }
+  }
+  @else if $point == tablet {
+	@media screen and (max-width: 768px) { @content; }
+  }
+  @else if $point == mobileonly {
+	@media screen and (max-width: 576px)  { @content; }
+  }
+  @else {
+	@media screen and (max-width: $point) { @content; }
+  }
+}
+
+@mixin moreThan($px) {
+  @media screen and (min-width: $point) { @content; }
+}
+
+// Vendor prefixes
+$sass-burger-add-vendor-prefixes: true !default;
+
+// Burger
+@mixin burger($width: 30px, $height: 5px, $gutter: 3px, $color: #000, $border-radius: 0, $transition-duration: 0.3s) {
+  $burger-height: $height !global;
+  $burger-gutter: $gutter !global;
+
+  position: relative;
+  margin-top: $height + $gutter;
+  margin-bottom: $height + $gutter;
+
+  @if $sass-burger-add-vendor-prefixes {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+  }
+
+  user-select: none;
+
+  // 1. Fixes jagged edges in Firefox, see issue #10.
+  &,
+  &::before,
+  &::after {
+	display: block;
+	width: $width;
+	height: $height;
+	background-color: $color;
+	outline: 1px solid transparent; // 1
+
+	@if $border-radius != 0 {
+	  border-radius: $border-radius;
+	}
+
+	@if $sass-burger-add-vendor-prefixes {
+	  -webkit-transition-property: background-color, -webkit-transform;
+	  -moz-transition-property: background-color, -moz-transform;
+	  -o-transition-property: background-color, -o-transform;
+	}
+
+	transition-property: background-color, transform;
+
+	@if $sass-burger-add-vendor-prefixes {
+	  -webkit-transition-duration: $transition-duration;
+	  -moz-transition-duration: $transition-duration;
+	  -o-transition-duration: $transition-duration;
+	}
+
+	transition-duration: $transition-duration;
+  }
+
+  &::before,
+  &::after {
+	position: absolute;
+	content: "";
+  }
+
+  &::before {
+	top: -($height + $gutter);
+  }
+
+  &::after {
+	top: $height + $gutter;
+  }
+}
+
+// Select parts of the burger
+@mixin burger-parts {
+  &,
+  &::before,
+  &::after {
+	@content;
+  }
+}
+
+@mixin burger-top {
+  &::before {
+	@content;
+  }
+}
+
+@mixin burger-middle {
+  & {
+	@content;
+  }
+}
+
+@mixin burger-bottom {
+  &::after {
+	@content;
+  }
+}
+
+// Burger animations
+@mixin burger-to-cross($color: auto) {
+  & {
+	background-color: transparent;
+  }
+
+  @if ($color != auto) {
+	&::before,
+	&::after {
+	  background-color: $color;
+	}
+  }
+
+  &::before {
+	@if $sass-burger-add-vendor-prefixes {
+	  -webkit-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+	  -moz-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+	  -ms-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+	  -o-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+	}
+
+	transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+  }
+
+  &::after {
+	@if $sass-burger-add-vendor-prefixes {
+	  -webkit-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+	  -moz-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+	  -ms-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+	  -o-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+	}
+
+	transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+  }
+}
+
+@function pt-to-px-unit($size-in-points){
+  @return #{ round($size-in-points * 1.333333) };
+}
+
+@function pt-to-px($size-in-points){
+  @return #{ pt-to-px-unit($size-in-points) }px;
+}
+
+@function stripUnit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@function pt-to-rem($pxValue) {
+  @return rem(pt-to-px-unit($pxValue));
+}
+
+@function rem($pxValue) {
+  @return #{stripUnit($pxValue) / stripUnit($html-font-size)}rem;
+}
+
+@function vh($pxValue) {
+  @return #{(100 * stripUnit($pxValue)) / stripUnit($html-base-height)}vh;
+}
+
+
+@function color($color-name, $opacity: 1) {
+  @return rgba(var(#{$prefix-color}#{$color-name}--rgb), $opacity);
+}
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+@function contrast-color($color, $dark, $light) {
+  @return if(lightness($color) < $threshold, $light, $dark)
+}

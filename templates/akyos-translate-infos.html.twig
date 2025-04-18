@@ -1,0 +1,26 @@
+{% extends 'sections/layout.html.twig' %}
+
+{% block page_content %}
+	<section class="aky_card">
+		<h1 class="text-center"{{ title }}</h1>
+
+		<div class="info">
+			<p>
+				<em>Plugin installé : Polylang</em>
+			</p>
+		</div>
+
+		<div class="c-languages">
+			<h6>Langues configurées</h6>
+			<ul class="c-languages--list">
+				{% for langue in languages %}
+					<li>
+						<img src="{{ langue['flag'] }}" alt="{{ langue['locale'] }}">
+						<p>{{ langue['name'] }}</p>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+	</section>
+{% endblock %}
