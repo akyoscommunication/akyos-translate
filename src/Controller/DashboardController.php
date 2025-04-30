@@ -37,6 +37,17 @@ class DashboardController extends AbstractController
 			'languages' => $this->polylangService->getLanguages(),
 			'pagesByLanguage' => $this->polylangService->getPagesByLanguage(),
 		]);
+	}
 
+	#[AdminRoute(type: AdminRoute::TYPE_SUBMENU_PAGE, pageTitle: 'Traduction Mots', menuTitle: 'Traduction Mots', capability: 'manage_options', slug: AKYOS_BASE_PLUGIN_NAME.'-words', parentSlug: AKYOS_BASE_PLUGIN_NAME, iconUrl: '', position: 99)]
+	public function words()
+	{
+		$this->render('akyos-translate-words.html.twig', [
+			'title' => 'Traduction Mots',
+			'content' => 'Traduction Mots',
+			'words' => $this->polylangService->getWords(),
+			'languages' => $this->polylangService->getLanguages(),
+			'hasPolylang' => $this->checkPluginService->hasPolylangActivated(),
+		]);
 	}
 }

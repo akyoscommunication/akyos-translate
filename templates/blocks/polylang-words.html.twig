@@ -1,0 +1,62 @@
+<div class="actions-group">
+	<button id="select-all-btn">Tout sélectionner</button>
+	{% include 'components/translate-button.html.twig' with {
+		'label': 'Traduire la sélection',
+		'action': 'akyos_translate_translate_words',
+		'class': 'translate-selected-btn',
+		'disabled': true,
+		'inputs': [
+			{
+				'name': 'original',
+				'value': null
+			}
+		],
+	} %}
+</div>
+
+<div class="table-responsive">
+	<table>
+		<thead>
+		<tr>
+			<th class="checkbox-column">
+			</th>
+			<th>Texte original</th>
+			{% for language in languages %}
+				<th>{{ language.name }}</th>
+			{% endfor %}
+			<th>Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for original, translations in words %}
+			<tr data-word="{{ original }}">
+				<td>
+					<input type="checkbox" class="word-checkbox">
+				</td>
+				<td>{{ original }}</td>
+				{% for language in languages %}
+					<td class="translation-cell">
+						<span class="translation-text">{{ translations[language.slug] }}</span>
+						<input type="text" class="translation-input hidden"
+								 value="{{ translations[language.slug] }}"
+								 data-lang="{{ language.slug }}">
+					</td>
+				{% endfor %}
+				<td class="actions">
+					{% include 'components/translate-button.html.twig' with {
+						'label': 'Traduire',
+						'action': 'akyos_translate_translate_words',
+						'class': 'translate-btn',
+						'inputs': [
+							{
+								'name': 'original',
+								'value': original
+							}
+						],
+					} %}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>

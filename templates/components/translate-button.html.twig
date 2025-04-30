@@ -1,0 +1,7 @@
+<form method="POST" enctype="multipart/form-data" action="{{ admin_url }}" class="{{ class }}">
+	<input type="hidden" name="action" value="{{ action }}">
+	{% for input in inputs %}
+		<input type="hidden" name="{{ input.name }}" value="{{ input.value }}">
+	{% endfor %}
+	<button type="submit" class="btn btn--primary" {{ disabled ? 'disabled' : null }}>{{ label }}</button>
+</form>

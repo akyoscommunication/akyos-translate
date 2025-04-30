@@ -1,35 +1,45 @@
-<div class="s-polylang-dashboard">
-	<div class="s-polylang-dashboard-languages">
-		<div class="s-polylang-dashboard-pages">
-			<table class="c-pages-table">
-				<thead>
-				<tr>
-					{% for langue in languages %}
-						<th>{{ langue['name'] }}</th>
-					{% endfor %}
-					<th>Actions</th>
-				</tr>
-				</thead>
-				<tbody>
-				{% for page in pagesByLanguage %}
-					<tr>
-						{% for langue in languages %}
-							<td><a href="{{ page[langue['slug']]['url'] }}">{{ page[langue['slug']]['title'] }}</a></td>
-						{% endfor %}
-						<td>
-							{% include 'components/single-translate-button.html.twig' with
-								{
-									'label': 'Traduire',
-									'page_id': page['fr']['id'],
-									'is_all_translated': page['all_translated'],
-									'action' : 'akyos_translate_translate_single_page'
-								} %}
-						</td>
-					</tr>
-				{% endfor %}
-				</tbody>
-			</table>
-		</div>
+<div class="actions-group">
+{#	<button class="translate-all-btn" data-action="translate-all">Tout traduire</button>#}
+</div>
 
-	</div>
+<div class="table-responsive">
+	<table>
+		<thead>
+		<tr>
+			{% for langue in languages %}
+				<th>{{ langue['name'] }}</th>
+			{% endfor %}
+			<th class="actions">Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for page in pagesByLanguage %}
+			<tr>
+				{% for langue in languages %}
+					<td class="translation-cell">
+						<a href="{{ page[langue['slug']]['url'] }}" class="page-link">
+							{{ page[langue['slug']]['title'] }}
+						</a>
+					</td>
+				{% endfor %}
+				<td class="actions">
+					{% include 'components/translate-button.html.twig' with {
+						'label': 'Traduire',
+						'action': 'akyos_translate_translate_single_page',
+						'inputs' : [
+							{
+								'name': 'page_id',
+								'value': page['fr']['id']
+							},
+							{
+								'name': 'is_all_translated',
+								'value': page['all_translated'] ? 1 : 0
+							}
+						],
+					} %}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
 </div>

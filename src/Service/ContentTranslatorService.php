@@ -10,45 +10,41 @@ class ContentTranslatorService
 	public string $openAiKey;
 
 
-	public function __construct(
-		private readonly DeeplService $deeplService,
-	)
+	public function __construct()
 	{
 		$this->openAiKey = getenv('OPENAI_API_KEY');
 	}
 
 	public function openAiTranslateContent($content, $currentLang, $targetLang): string
 	{
+		set_time_limit(120);
+
 		$client = \OpenAI::client($this->openAiKey);
-		$result = $client->chat()->create([
-			'model' => 'gpt-4o',
-			'messages' => [
-				[
-					'role' => 'user',
-					'content' => "
-You are a translation assistant.
 
-Take the following WordPress block HTML content and translate ONLY the visible text that users can read on the site (e.g., text in <p>, <a>, <h1>, etc.), from {$currentLang} to {$targetLang}.
-  
-Strictly preserve:
-- The entire HTML structure (tags, comments, and formatting).
-- Any URLs, image paths, or class names—which should not be altered.
+		$prompt = "
+Translate the following content from French to $targetLang while preserving all HTML and WordPress-specific escape characters (like \u003c, \u003e, \r\n, etc.). Do not remove or alter any of the structure or encoding. Only translate the visible French text. 
 
-DO NOT include any additional tags, such as ```html or ```. Only return the pure HTML content as output.
-
-Here is the content to translate:
-{$content}
-"
-
+Content to translate:
+$content
+";
+		try {
+			$result = $client->chat()->create([
+				'model' => 'gpt-4o',
+				'messages' => [
+					[
+						'role' => 'user',
+						'content' => $prompt
+					]
 				]
-			]
-		]);
+			]);
+		} catch (\Exception $e) {
+			// Handle the exception, e.g., log it or display an error message
+			$result = null;
+		}
+
 
 		$translatedContent = $result['choices'][0]['message']['content'];
-		$translatedContent = preg_replace('/^```html\s*/', '', $translatedContent);
-		$translatedContent = preg_replace('/\s*```$/', '', $translatedContent);
 
-
-		return $result['choices'][0]['message']['content'];
+		return trim($translatedContent);
 	}
 }

@@ -27,7 +27,13 @@ use AkyosTranslate\AkyosTranslate;
 use AkyosTranslate\Kernel;
 
 
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+
 require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/Utils/utils.php';
 
 const AKYOS_BASE_PLUGIN_VERSION = '0.0.1';
 const AKYOS_BASE_PLUGIN_NAME = 'akyos-translate';
